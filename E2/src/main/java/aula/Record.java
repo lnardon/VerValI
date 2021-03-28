@@ -1,4 +1,4 @@
-package com.bcopstein;
+package aula;
 
 public class Record {
     private String name;

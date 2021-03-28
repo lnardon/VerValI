@@ -1,4 +1,4 @@
-package com.bcopstein;
+package aula;
 
 public class Ranking {
 	private final int MAXSCORES = 20; 
