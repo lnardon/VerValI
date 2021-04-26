@@ -5,6 +5,10 @@ public class DepComb {
     public static final int MAX_ADITIVO = 500;
     public static final int MAX_ALCOOL = 2500;
     public static final int MAX_GASOLINA = 10000;
+    
+    public static final int MISTURA_ADITIVO = 5;    // 5%
+    public static final int MISTURA_ALCOOL = 25;    // 25%
+    public static final int MISTURA_GASOLINA = 70;  // 70%
 
     private int qtdGasolina;
     private int qtdAditivo;
@@ -15,6 +19,9 @@ public class DepComb {
     public DepComb(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) {
         qtdGasolina = tGasolina;
         qtdAditivo = tAditivo;
+        qtdAlcool1 = (tAlcool1 + tAlcool2)/2;
+        qtdAlcool2 = (tAlcool1 + tAlcool2)/2;
+        defineSituacao();
     }
 
     public void defineSituacao(){
@@ -57,7 +64,7 @@ public class DepComb {
         
     }
 
-    public int revcebeAlcool1(int qtdade){
+    public int recebeAlcool(int qtdade){
         
     }
 
