@@ -6,9 +6,9 @@ public class DepComb {
     public static final int MAX_ALCOOL = 2500;
     public static final int MAX_GASOLINA = 10000;
     
-    public static final int MISTURA_ADITIVO = 5;    // 5%
-    public static final int MISTURA_ALCOOL = 25;    // 25%
-    public static final int MISTURA_GASOLINA = 70;  // 70%
+    public static final int MISTURA_ADITIVO = 5;
+    public static final int MISTURA_ALCOOL = 25;
+    public static final int MISTURA_GASOLINA = 70;
 
     private int qtdGasolina;
     private int qtdAditivo;
@@ -25,14 +25,14 @@ public class DepComb {
     }
 
     public void defineSituacao(){
-        int qtdDisponivel;
-        // Adicional aqui o calculo de qtd de combustivel disponivel
-        if(qtdDisponivel > 0.5) {
+        if(aditivo > 250 && gasolina > 5000 && alcool > 1250) {
             situacao = SITUACAO.NORMAL;
-        } else if(qtdDisponivel > 0.25){
-            situacao = SITUACAO.SOBRAVISO;
-        } else {
+        }
+        else if(aditivo <= 125 && gasolina <= 2500 && alcool <= 625) {
             situacao = SITUACAO.EMERGENCIA;
+        }
+        else {
+            situacao = SITUACAO.SOBRAVISO;
         }
     }
 
@@ -116,27 +116,166 @@ public class DepComb {
     }
 
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto){
-        switch(situacao){
-            case NORMAL:
-                System.out.println("1");
-                break;
-            case SOBRAVISO:
-                if(tipoPosto == ESTRATEGICO){
+        if (qtdade > 0) {
+            double aditivo  = qtdAditivo - ((qtdade * MISTURA_ADITIVO) / 100);
+            double gasolina = qtdGasolina - ((qtdade * MISTURA_GASOLINA) / 100);
+            double alcool   = (qtdAlcool1 + qtdAlcool2) - ((qtdade * MISTURA_ALCOOL) / 100);
+            
+            switch(situacao){
+                case NORMAL:
+                    if(tipoPosto == ESTRATEGICO) {
+                        if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
 
-                } else {
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
 
-                }
-                System.out.println("2");
-                break;
-            case EMERGENCIA:
-                if(tipoPosto == ESTRATEGICO){
+                            encomenda[0] = -21;
 
-                } else {
+                            return encomenda;
+                        }
+                    } 
+                    else {
+                        if(aditivo > 250 && gasolina > 5000 && alcool > 1250) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
 
-                }
-                System.out.println("3");
-                break;
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
+
+                            encomenda[0] = -14;
+
+                            return encomenda;
+                        }
+                    }
+                    System.out.println("1");
+                    break;
+                case SOBRAVISO:
+                    if(tipoPosto == ESTRATEGICO) {
+                        if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
+
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
+
+                            encomenda[0] = -21;
+
+                            return encomenda;
+                        }
+                    } 
+                    else {
+                        if(aditivo >= 250 && gasolina >= 5000 && alcool >= 1250) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
+
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
+
+                            encomenda[0] = -14;
+
+                            return encomenda;
+                        }
+                    }
+                    System.out.println("2");
+                    break;
+                case EMERGENCIA:
+                    if(tipoPosto == ESTRATEGICO) {
+                        if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
+
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
+
+                            encomenda[0] = -21;
+
+                            return encomenda;
+                        }
+                    } 
+                    else {
+                        if(aditivo >= 125 && gasolina >= 2500 && alcool >= 625) {
+                            qtdAditivo  = (int)aditivo;
+                            qtdGasolina = (int)gasolina;
+                            qtdAlcool1  = (int)alcool / 2;
+                            qtdAlcool2  = (int)alcool / 2;
+
+                            int[] encomenda = new int[4];
+                            encomenda[0] = qtdAditivo;
+                            encomenda[1] = qtdGasolina;
+                            encomenda[2] = qtdAlcool1;
+                            encomenda[3] = qtdAlcool2;
+                            
+                            return encomenda;
+                        }
+                        else {
+                            int[] encomenda = new int[1];
+
+                            encomenda[0] = -14;
+
+                            return encomenda;
+                        }
+                    }
+                    System.out.println("3");
+                    break;
+            }
+        }
+        else {
+            int encomenda[] = new int[1];
+            encomenda[0] = -7;
+
+            return encomenda;
         }
     }
-
 }
