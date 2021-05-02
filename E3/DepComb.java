@@ -57,15 +57,62 @@ public class DepComb {
     }
 
     public int recebeAditivo(int qtdade){
-        
+        if(qtdade > 0) {
+            if ((qtdAditivo + qtdade) >= MAX_ADITIVO) {
+                int ret = MAX_ADITIVO - qtdAditivo;
+                qtdAditivo = MAX_ADITIVO;
+    
+                return ret;
+            }
+            else {
+                qtdAditivo += qtdade;
+    
+                return qtdade;
+            }
+        }
+        else {
+            return -1;
+        }
     }
-
+    
     public int recebeGasolina(int qtdade){
-        
+        if(qtdade > 0) {
+            if ((qtdGasolina + qtdade) >= MAX_GASOLINA) {
+                int ret = MAX_GASOLINA - qtdGasolina;
+                qtdGasolina = MAX_GASOLINA;
+    
+                return ret;
+            }
+            else {
+                qtdGasolina += qtdade;
+    
+                return qtdade;
+            }
+        }
+        else {
+            return -1;
+        }
     }
-
+    
     public int recebeAlcool(int qtdade){
-        
+        if(qtdade > 0) {
+            if ((qtdAlcool1 + qtdAlcool2 + qtdade) >= MAX_ALCOOL) {
+                int ret = MAX_ALCOOL - (qtdAlcool1 + qtdAlcool2);
+                qtdAlcool1 = MAX_ALCOOL / 2;
+                qtdAlcool2 = MAX_ALCOOL / 2;
+    
+                return ret;
+            }
+            else {
+                qtdAlcool1 += qtdade / 2;
+                qtdAlcool2 += qtdade / 2;
+    
+                return qtdade;
+            }
+        }
+        else {
+            return -1;
+        }
     }
 
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto){
