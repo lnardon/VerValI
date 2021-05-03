@@ -1,3 +1,5 @@
+package aula;
+
 public class DepComb {
     public enum SITUACAO {NORMAL,SOBRAVISO,EMERGENCIA}
     public enum TIPOPOSTO {COMUM, ESTRATEGICO}
@@ -25,10 +27,10 @@ public class DepComb {
     }
 
     public void defineSituacao(){
-        if(aditivo > 250 && gasolina > 5000 && alcool > 1250) {
+        if(qtdAditivo > 250 && qtdGasolina > 5000 && (qtdAlcool1 + qtdAlcool2)/2 > 1250) {
             situacao = SITUACAO.NORMAL;
         }
-        else if(aditivo <= 125 && gasolina <= 2500 && alcool <= 625) {
+        else if(qtdAditivo <= 125 && qtdGasolina <= 2500 && (qtdAlcool1 + qtdAlcool2)/2 <= 625) {
             situacao = SITUACAO.EMERGENCIA;
         }
         else {
@@ -123,7 +125,7 @@ public class DepComb {
             
             switch(situacao){
                 case NORMAL:
-                    if(tipoPosto == ESTRATEGICO) {
+                    if(tipoPosto == TIPOPOSTO.ESTRATEGICO) {
                         if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
                             qtdAditivo  = (int)aditivo;
                             qtdGasolina = (int)gasolina;
@@ -169,10 +171,8 @@ public class DepComb {
                             return encomenda;
                         }
                     }
-                    System.out.println("1");
-                    break;
                 case SOBRAVISO:
-                    if(tipoPosto == ESTRATEGICO) {
+                    if(tipoPosto == TIPOPOSTO.ESTRATEGICO) {
                         if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
                             qtdAditivo  = (int)aditivo;
                             qtdGasolina = (int)gasolina;
@@ -218,10 +218,8 @@ public class DepComb {
                             return encomenda;
                         }
                     }
-                    System.out.println("2");
-                    break;
                 case EMERGENCIA:
-                    if(tipoPosto == ESTRATEGICO) {
+                    if(tipoPosto == TIPOPOSTO.ESTRATEGICO) {
                         if(aditivo >= 0 && gasolina >= 0 && alcool >= 0) {
                             qtdAditivo  = (int)aditivo;
                             qtdGasolina = (int)gasolina;
@@ -267,15 +265,11 @@ public class DepComb {
                             return encomenda;
                         }
                     }
-                    System.out.println("3");
-                    break;
             }
         }
-        else {
-            int encomenda[] = new int[1];
-            encomenda[0] = -7;
+        int encomenda[] = new int[1];
+        encomenda[0] = -7;
+        return encomenda;
 
-            return encomenda;
-        }
     }
 }
