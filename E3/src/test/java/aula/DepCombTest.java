@@ -18,8 +18,8 @@ class DepCombTest {
     @Test
     public void vendaSituacaoSobravisoComum() {
         depComb = new DepComb(300, 4000, 900, 900);
-        int encomenda[] = depComb.encomendaCombustivel(2000, DepComb.TIPOPOSTO.COMUM);
-        int esperado[] = new int[]{200, 2600, 650, 650};
+        int encomenda[] = depComb.encomendaCombustivel(200, DepComb.TIPOPOSTO.COMUM);
+        int esperado[] = new int[]{290, 3860, 875, 875};
 
         Assertions.assertArrayEquals(esperado, encomenda);
     }

@@ -196,7 +196,7 @@ public class DepComb {
                         }
                     } 
                     else {
-                        if(aditivo >= 250 && gasolina >= 5000 && alcool >= 1250) {
+                        if(aditivo >= MAX_ADITIVO/4 && gasolina >= MAX_GASOLINA/4 && alcool >= MAX_ALCOOL/4) {
                             qtdAditivo  = (int)aditivo;
                             qtdGasolina = (int)gasolina;
                             qtdAlcool1  = (int)alcool / 2;
@@ -243,27 +243,10 @@ public class DepComb {
                         }
                     } 
                     else {
-                        if(aditivo >= 125 && gasolina >= 2500 && alcool >= 625) {
-                            qtdAditivo  = (int)aditivo;
-                            qtdGasolina = (int)gasolina;
-                            qtdAlcool1  = (int)alcool / 2;
-                            qtdAlcool2  = (int)alcool / 2;
+                        int[] encomenda = new int[1];
+                        encomenda[0] = -14;
 
-                            int[] encomenda = new int[4];
-                            encomenda[0] = qtdAditivo;
-                            encomenda[1] = qtdGasolina;
-                            encomenda[2] = qtdAlcool1;
-                            encomenda[3] = qtdAlcool2;
-                            
-                            return encomenda;
-                        }
-                        else {
-                            int[] encomenda = new int[1];
-
-                            encomenda[0] = -14;
-
-                            return encomenda;
-                        }
+                        return encomenda;
                     }
             }
         }
