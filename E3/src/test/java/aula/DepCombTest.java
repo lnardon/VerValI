@@ -2,10 +2,13 @@ package aula;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class DepCombTest {
     private DepComb depComb;
 
+    // Testa venda para posto ESTRATEGICO em situacao NORMAL
     @Test
     public void vendaSituacaoNormalEstrategico() {
         depComb = new DepComb(500, 10000, 1250, 1250);
@@ -15,6 +18,7 @@ class DepCombTest {
         Assertions.assertArrayEquals(esperado, encomenda);
     }
 
+        // Testa venda para posto COMUM em situacao SOBRAVISO
     @Test
     public void vendaSituacaoSobravisoComum() {
         depComb = new DepComb(300, 4000, 900, 900);
@@ -24,6 +28,7 @@ class DepCombTest {
         Assertions.assertArrayEquals(esperado, encomenda);
     }
 
+    // Testa venda para posto ESTRATEGICO em situacao EMERGENCIA
     @Test
     public void vendaSituacaoEmergenciaEstrategico() {
         depComb = new DepComb(249, 2499, 624, 624);
@@ -36,6 +41,7 @@ class DepCombTest {
         Assertions.assertArrayEquals(esperado, encomenda);
     }
 
+    // Testa a nao venda para posto COMUM em situacao NORMAL porem com quantia que excede o limite de combustivel
     @Test
     public void naoVendeSituacaoNormalComum() {
         depComb = new DepComb(500, 10000, 1250, 1250);
@@ -45,6 +51,7 @@ class DepCombTest {
         Assertions.assertArrayEquals(esperado, encomenda);
     }
 
+    // Testa a nao venda para posto ESTRATEGICO em situacao SOBRAVISO porem com quantia que excede o limite de combustivel
     @Test
     public void naoVendeSituacaoSobravisoEstrategico() {
         depComb = new DepComb(300, 4000, 900, 900);
@@ -53,7 +60,7 @@ class DepCombTest {
 
         Assertions.assertArrayEquals(esperado, encomenda);
     }
-
+    // Testa a nao venda para posto ESTRATEGICO em situacao EMERGENCIA porem com quantia que excede o limite de combustivel
     @Test
     public void naoVendeSituacaoEmergenciaComum() {
         depComb = new DepComb(249, 2499, 624, 624);
@@ -63,72 +70,82 @@ class DepCombTest {
         Assertions.assertArrayEquals(esperado, encomenda);
     }
 
-    @Test
-    public void recebeAditivo() {
-        depComb = new DepComb(250, 10000, 1250, 1250);
-        depComb.recebeAditivo(250);
 
-        Assertions.assertEquals(500, depComb.getAditivo());
+    // Testa o recebimento de aditivo pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "0,250",
+        "250,500",
+        "251,500"
+    })
+    public void recebeAditivo(int recebido , int esperado) {
+        depComb = new DepComb(250, 10000, 1250, 1250);
+        depComb.recebeAditivo(recebido);
+
+        Assertions.assertEquals(esperado, depComb.getAditivo());
     }
 
-    @Test
-    public void recebeGasolina() {
+    // Testa o recebimento de gasolina pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "0,5000",
+        "5000,10000",
+        "5001,10000"
+    })
+    public void recebeGasolina(int recebido , int esperado) {
         depComb = new DepComb(250, 5000, 1250, 1250);
-        depComb.recebeGasolina(2500);
+        depComb.recebeGasolina(recebido);
 
-        Assertions.assertEquals(7500, depComb.getGasolina());
+        Assertions.assertEquals(esperado, depComb.getGasolina());
     }
 
-    @Test
-    public void recebeAlcool() {
+    // Testa o recebimento de alcool pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "0,2000",
+        "500,2500",
+        "501,2500"
+    })
+    public void recebeAlcool(int recebido , int esperado) {
         depComb = new DepComb(250, 5000, 1000, 1000);
-        depComb.recebeAlcool(499);
+        depComb.recebeAlcool(recebido);
 
-        Assertions.assertEquals(2498, depComb.getAlcool1() + depComb.getAlcool2());
+        Assertions.assertEquals(esperado, depComb.getAlcool1() + depComb.getAlcool2());
     }
 
-    @Test
-    public void recebeAditivoParaCompletar() {
-        depComb = new DepComb(250, 10000, 1250, 1250);
-        depComb.recebeAditivo(1000);
-
-        Assertions.assertEquals(500, depComb.getAditivo());
-    }
-
-    @Test
-    public void recebeGasolinaParaCompletar() {
-        depComb = new DepComb(250, 5000, 1250, 1250);
-        depComb.recebeGasolina(10000);
-
-        Assertions.assertEquals(10000, depComb.getGasolina());
-    }
-
-    @Test
-    public void recebeAlcoolParaCompletar() {
-        depComb = new DepComb(250, 5000, 1000, 1000);
-        depComb.recebeAlcool(10000);
-
-        Assertions.assertEquals(2500, depComb.getAlcool1() + depComb.getAlcool2());
-    }
-
-    @Test
-    public void recebeAditivoInvalido() {
+    // Testa o recebimento de aditivo invalido pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "0,-1",
+        "-1,-1"
+    })
+    public void recebeAditivoInvalido(int recebido , int esperado) {
         depComb = new DepComb(250, 10000, 1250, 1250);
 
-        Assertions.assertEquals(-1, depComb.recebeAditivo(-555));
+        Assertions.assertEquals(esperado, depComb.recebeAditivo(recebido));
     }
 
-    @Test
-    public void recebeGaslinaInvalido() {
+    // Testa o recebimento de gasolina invalido pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "0,-1",
+        "-1,-1"
+    })
+    public void recebeGasolinaInvalido(int recebido , int esperado) {
         depComb = new DepComb(250, 10000, 1250, 1250);
 
-        Assertions.assertEquals(-1, depComb.recebeGasolina(-555));
+        Assertions.assertEquals(esperado, depComb.recebeGasolina(recebido));
     }
 
-    @Test
-    public void recebeAlcoolInvalido() {
+    // Testa o recebimento de alcool invalido pelo deposito
+    @ParameterizedTest
+    @CsvSource({
+        "-1,-500",
+        "-1,0"
+    })
+    public void recebeAlcoolInvalido(int r , int input) {
         depComb = new DepComb(250, 10000, 1250, 1250);
 
-        Assertions.assertEquals(-1, depComb.recebeAlcool(-555));
+        Assertions.assertEquals(r, depComb.recebeAlcool(input));
     }
 }
