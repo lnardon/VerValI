@@ -27,10 +27,10 @@ public class DepComb {
     }
 
     public void defineSituacao(){
-        if(qtdAditivo > 250 && qtdGasolina > 5000 && (qtdAlcool1 + qtdAlcool2)/2 > 1250) {
+        if(qtdAditivo > MAX_ADITIVO/2 && qtdGasolina > MAX_GASOLINA/2 && (qtdAlcool1 + qtdAlcool2)/2 > MAX_ALCOOL/2) {
             situacao = SITUACAO.NORMAL;
         }
-        else if(qtdAditivo <= 125 && qtdGasolina <= 2500 && (qtdAlcool1 + qtdAlcool2)/2 <= 625) {
+        else if(qtdAditivo <= MAX_ADITIVO/4 && qtdGasolina <= MAX_GASOLINA/4 && (qtdAlcool1 + qtdAlcool2)/2 <= MAX_ALCOOL/4) {
             situacao = SITUACAO.EMERGENCIA;
         }
         else {
